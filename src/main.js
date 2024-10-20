@@ -1,37 +1,41 @@
 
-class BankAccount {
-  #balance = 0;
+class EventManager {
 
-  constructor(balance) {
-    this.#balance = balance;
+  constructor() {
+    this.events = {};
   }
 
-  deposit(amount) {
-    if(amount > 0 && typeof amount === 'number') {
-      this.#balance += amount;
-    } else {
-      throw new Error('Amount is invalid');
+  on(event, callback) {
+    if (!this.events[event]) {
+      this.events[event] = [];
     }
-    console.log(this.#balance);
+    this.events[event].push(callback);
+    console.log('Added')
   }
 
-  withdraw(amount) {
-    if(amount > 0 && typeof amount === 'number') {
-      this.#balance -= amount;
-    } else {
-      throw new Error('Amount is invalid');
-    }
-    console.log(this.#balance);
+  off(event, callback) {
+    if (!this.events[event]) return;
+    this.events[event] = this.events[event].filter(cb => cb !== callback);
+    console.log('Deleted')
   }
 
-  getBalance(){
-    console.log(this.#balance);
-    return this.#balance;
+  trigger(event, ...args) {
+    if (!this.events[event]) return;
+    this.events[event].forEach(callback => callback(...args));
   }
-
 }
 
-const user1 = new BankAccount(2000)
-user1.deposit(4000)
-user1.withdraw(1000)
-user1.getBalance()
+const eventManager = new EventManager();
+
+eventManager.on('sendGift', () => {
+  console.log('Sending...');
+});
+
+eventManager.trigger('sendGift');
+
+eventManager.off('sendGift')
+
+
+
+
+
