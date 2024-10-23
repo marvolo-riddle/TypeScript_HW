@@ -1,37 +1,11 @@
-
-class BankAccount {
-  #balance = 0;
-
-  constructor(balance) {
-    this.#balance = balance;
-  }
-
-  deposit(amount) {
-    if(amount > 0 && typeof amount === 'number') {
-      this.#balance += amount;
-    } else {
-      throw new Error('Amount is invalid');
-    }
-    console.log(this.#balance);
-  }
-
-  withdraw(amount) {
-    if(amount > 0 && typeof amount === 'number') {
-      this.#balance -= amount;
-    } else {
-      throw new Error('Amount is invalid');
-    }
-    console.log(this.#balance);
-  }
-
-  getBalance(){
-    console.log(this.#balance);
-    return this.#balance;
-  }
-
-}
-
-const user1 = new BankAccount(2000)
-user1.deposit(4000)
-user1.withdraw(1000)
-user1.getBalance()
+"use strict";
+const getAverage = (array) => {
+    if (array.length === 0)
+        return 0;
+    const sum = array.reduce((a, b) => a + b, 0);
+    return sum / array.length;
+};
+const array = [1, 2, 3, 4, 5];
+const array2 = [5, 5, 2];
+console.log(getAverage(array));
+console.log(getAverage(array2));
