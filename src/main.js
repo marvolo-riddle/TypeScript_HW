@@ -1,11 +1,14 @@
 "use strict";
-const getAverage = (array) => {
-    if (array.length === 0)
-        return 0;
-    const sum = array.reduce((a, b) => a + b, 0);
-    return sum / array.length;
+const reverseArray = (arr) => {
+    const length = arr.length;
+    for (let i = 0; i < Math.floor(length / 2); i++) {
+        const temp = arr[i];
+        arr[i] = arr[length - 1 - i];
+        arr[length - 1 - i] = temp;
+    }
+    return arr;
 };
-const array = [1, 2, 3, 4, 5];
-const array2 = [5, 5, 2];
-console.log(getAverage(array));
-console.log(getAverage(array2));
+const arr = [1, 2, 3];
+const reversedArr = reverseArray(arr);
+console.log(reversedArr);
+console.log(reversedArr === arr);
