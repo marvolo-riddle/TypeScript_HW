@@ -1,13 +1,27 @@
 
+const deepClone = (obj: any): any => {
 
-const getAverage = (array: number[]) => {
-  if (array.length === 0) return 0;
-  const sum = array.reduce((a, b) => a + b, 0);
-   return sum / array.length;
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(deepClone);
+    }
+
+    const copy: any = {};
+    for (const key in obj) {
+        copy[key] = deepClone(obj[key]);
+    }
+
+    return copy;
 }
 
-const array = [1, 2, 3, 4, 5];
-const array2 = [5, 5, 2]
 
-console.log(getAverage(array))
-console.log(getAverage(array2))
+const original = { a: 1, b: { c: 2 }, d: [3, 4] };
+const copy = deepClone(original);
+
+console.log(copy);  
+console.log(original !== copy);
+console.log(original.b !== copy.b);
+console.log(original.d !== copy.d);
